@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Agri — Caribbean</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #f5f0e8;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #2d5a1b;
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+      margin-bottom: 1.25rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 2px solid #c8ddb8;
+      border-radius: 8px;
+      padding: 1.5rem 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card:hover, .card:focus {
+      border-color: #2d5a1b;
+      box-shadow: 0 3px 12px rgba(45,90,27,0.15);
+      outline: none;
+    }
+
+    .card .icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .card .title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #2d5a1b;
+    }
+
+    .card .desc {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.45;
+    }
+
+    .card.coming-soon {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-family: monospace;
+      background: #eee;
+      color: #888;
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      margin-top: 0.25rem;
+      align-self: flex-start;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.8rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Learn Agri — Caribbean</h1>
+  <p>Interactive tools for CSEC Agricultural Science &amp; CVQ Level 1 Crop Production</p>
+</header>
+
+<main>
+  <h2>Available Tools</h2>
+  <div class="grid">
+
+    <!-- Add new tool cards above this comment -->
+
+  </div>
+
+  <p style="margin-top:2rem;color:#888;font-size:0.9rem;">
+    More tools coming soon. Each tool opens as a standalone page.
+  </p>
+</main>
+
+<footer>
+  learn-agri-caribbean &mdash; open source classroom resources
+</footer>
+
+</body>
+</html>
