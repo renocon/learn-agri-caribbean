@@ -25,7 +25,13 @@ Then open `http://localhost:8080`.
 
 ## Available tools
 
-*No tools added yet — check back soon.*
+### Reference Glossary — `/glossary/`
+Open `glossary/index.html` directly in a browser (double-click or serve from root).
+
+- 110 terms across 9 categories: Plant Biology, Soil & Growing Media, Crop Management, Nutrients & Fertilizers, Pests & Diseases, Propagation, Irrigation & Water, Grow Box, Caribbean Agriculture
+- Instant search — filters term names and definitions as you type, with highlighted matches
+- Category filter pills to narrow by topic
+- Designed for projection: large text, high contrast
 
 ---
 

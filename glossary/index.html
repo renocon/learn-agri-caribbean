@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference Glossary — Learn Agri Caribbean</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #2d5a1b;
+      --green-mid: #4a7c2f;
+      --green-light: #c8ddb8;
+      --green-pale: #f0f5ea;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: #d0d8c8;
+      --white: #fff;
+      --mark-bg: #fff176;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #f5f0e8;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 1.5rem 1.5rem 1.25rem;
+    }
+
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    .back-link:hover { color: var(--white); }
+    .back-link::before { content: '← '; }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    /* ── CONTROLS ── */
+    .controls {
+      background: var(--white);
+      border-bottom: 2px solid var(--green-light);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .controls-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #search {
+      width: 100%;
+      font-size: 1.2rem;
+      font-family: inherit;
+      padding: 0.6rem 0.9rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    #search:focus { border-color: var(--green-mid); }
+
+    .cat-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .cat-btn {
+      font-family: inherit;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+
+    .cat-btn:hover { border-color: var(--green-mid); color: var(--green-dark); }
+
+    .cat-btn.active {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+      color: var(--white);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 3rem;
+    }
+
+    .results-bar {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    /* ── TERM CARDS ── */
+    .term-card {
+      background: var(--white);
+      border: 2px solid var(--green-light);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      transition: border-color 0.12s;
+    }
+
+    .term-card:hover { border-color: var(--green-mid); }
+
+    .term-header {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .term-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--green-dark);
+    }
+
+    .term-cat {
+      font-size: 0.72rem;
+      font-family: monospace;
+      background: var(--green-pale);
+      color: var(--green-mid);
+      border: 1px solid var(--green-light);
+      border-radius: 3px;
+      padding: 0.1rem 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .term-def {
+      font-size: 1rem;
+      line-height: 1.55;
+      color: #333;
+    }
+
+    mark {
+      background: var(--mark-bg);
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="back-link" href="../index.html">Home</a>
+    <h1>Reference Glossary</h1>
+    <p>CSEC Agricultural Science &amp; CVQ Level 1 — Crop Production</p>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-inner">
+    <input id="search" type="search" placeholder="Search terms and definitions…" autocomplete="off" spellcheck="false">
+    <div class="cat-filters" id="catFilters"></div>
+  </div>
+</div>
+
+<main>
+  <p class="results-bar" id="resultsBar"></p>
+  <div id="termList"></div>
+  <div id="noResults" class="no-results" style="display:none">No matching terms found.</div>
+</main>
+
+<footer>learn-agri-caribbean — Reference Glossary</footer>
+
+<script>
+const CATEGORIES = {
+  'plant-biology':   'Plant Biology',
+  'soil':            'Soil & Growing Media',
+  'crop-management': 'Crop Management',
+  'nutrients':       'Nutrients & Fertilizers',
+  'pests':           'Pests & Diseases',
+  'propagation':     'Propagation',
+  'irrigation':      'Irrigation & Water',
+  'grow-box':        'Grow Box',
+  'caribbean':       'Caribbean Agriculture',
+};
+
+const TERMS = [
+  /* ── PLANT BIOLOGY ── */
+  { term: 'Annual',              cat: 'plant-biology',   def: 'A plant that completes its entire life cycle — germination, growth, flowering, seed production, and death — within one growing season.' },
+  { term: 'Biennial',            cat: 'plant-biology',   def: 'A plant that takes two growing seasons to complete its life cycle; it grows vegetatively in year one and flowers and sets seed in year two.' },
+  { term: 'Perennial',           cat: 'plant-biology',   def: 'A plant that lives for more than two years, typically regrowing from the same root system each season (e.g. sugarcane, banana).' },
+  { term: 'Chlorophyll',         cat: 'plant-biology',   def: 'The green pigment found in plant leaves and stems that absorbs sunlight and enables photosynthesis.' },
+  { term: 'Chlorosis',           cat: 'plant-biology',   def: 'Yellowing of plant leaves caused by insufficient chlorophyll production, often due to nutrient deficiency (especially iron or nitrogen) or disease.' },
+  { term: 'Dicotyledon (Dicot)', cat: 'plant-biology',   def: 'A flowering plant whose seed contains two seed leaves (cotyledons); includes tomatoes, beans, and cabbage. Leaves typically have a branching vein pattern.' },
+  { term: 'Dormancy',            cat: 'plant-biology',   def: 'A period of minimal metabolic activity in a seed or plant, allowing it to survive unfavourable conditions such as drought or cold.' },
+  { term: 'Geotropism',          cat: 'plant-biology',   def: 'The growth response of a plant to gravity. Roots grow downward (positive geotropism) and shoots grow upward (negative geotropism).' },
+  { term: 'Germination',         cat: 'plant-biology',   def: 'The process by which a seed begins to grow into a seedling when temperature, moisture, and oxygen conditions are favourable.' },
+  { term: 'Monocotyledon (Monocot)', cat: 'plant-biology', def: 'A flowering plant whose seed contains one seed leaf (cotyledon); includes maize, sugarcane, and grasses. Leaves typically have parallel veins.' },
+  { term: 'Necrosis',            cat: 'plant-biology',   def: 'The death of plant tissue, visible as brown, black, or dried patches on leaves, stems, fruit, or roots.' },
+  { term: 'Photosynthesis',      cat: 'plant-biology',   def: 'The process by which green plants use sunlight energy, carbon dioxide (CO₂), and water to produce glucose (food) and release oxygen. Formula: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂.' },
+  { term: 'Phototropism',        cat: 'plant-biology',   def: 'The tendency of a plant to grow toward a light source; stems bend toward light, maximising the surface area exposed for photosynthesis.' },
+  { term: 'Respiration',         cat: 'plant-biology',   def: 'The process by which plants (and all living things) break down glucose to release energy for growth, reproduction, and other functions; occurs day and night.' },
+  { term: 'Stomata',             cat: 'plant-biology',   def: 'Tiny pores on the surface of leaves (mainly the underside) that allow gas exchange — carbon dioxide in, oxygen out — and through which water vapour is lost.' },
+  { term: 'Transpiration',       cat: 'plant-biology',   def: 'The loss of water vapour from a plant, primarily through stomata in the leaves. Drives the movement of water and dissolved minerals up through the plant.' },
+
+  /* ── SOIL & GROWING MEDIA ── */
+  { term: 'Aeration',            cat: 'soil',  def: 'The process of introducing air (and oxygen) into soil or growing media. Essential for root function and beneficial microbial activity; poor aeration causes root suffocation.' },
+  { term: 'Coconut Coir',        cat: 'soil',  def: 'A fibrous growing medium made from the husk of coconuts. Holds moisture well, has excellent aeration, is pH-neutral, and is a sustainable by-product of coconut processing — widely available in the Caribbean.' },
+  { term: 'Compost',             cat: 'soil',  def: 'Fully decomposed organic material (kitchen scraps, plant waste, manure) that is added to soil or growing media to improve fertility, structure, and water retention.' },
+  { term: 'Drainage',            cat: 'soil',  def: 'The movement of excess water out of soil or growing media. Good drainage prevents waterlogging and root rot; poor drainage starves roots of oxygen.' },
+  { term: 'Humus',               cat: 'soil',  def: 'Dark, stable organic matter that remains after organic material has fully decomposed. Improves soil structure, water retention, nutrient-holding capacity, and supports beneficial microbes.' },
+  { term: 'Leachate',            cat: 'soil',  def: 'The liquid that drains out of the bottom of a grow box or pot. It may carry dissolved nutrients, so managing leachate is important in intensive grow box systems.' },
+  { term: 'Loam',                cat: 'soil',  def: 'A balanced soil type containing roughly equal proportions of sand, silt, and clay, plus organic matter. Considered ideal for most crops because it drains well yet retains moisture.' },
+  { term: 'Mulch',               cat: 'soil',  def: 'Material spread on the soil surface around plants — organic (straw, wood chips, dry leaves) or inorganic (black plastic). Retains soil moisture, suppresses weeds, moderates temperature, and reduces erosion.' },
+  { term: 'Organic Matter',      cat: 'soil',  def: 'Any material derived from once-living organisms present in or added to soil. Decomposing organic matter releases nutrients and improves soil texture.' },
+  { term: 'Perlite',             cat: 'soil',  def: 'A lightweight volcanic glass material processed by heating. Added to growing media to improve drainage and aeration; does not hold nutrients.' },
+  { term: 'pH',                  cat: 'soil',  def: 'A scale from 0–14 measuring the acidity or alkalinity of soil or a solution. Most vegetable crops grow best between pH 6.0–7.0. Below 6 = acidic; above 7 = alkaline.' },
+  { term: 'Soil Structure',      cat: 'soil',  def: 'The arrangement of individual soil particles into clumps (aggregates). Good structure improves drainage, aeration, and root penetration.' },
+  { term: 'Soil Texture',        cat: 'soil',  def: 'The relative proportions of sand, silt, and clay particles in a soil; determines drainage, aeration, and nutrient-holding capacity.' },
+  { term: 'Substrate',           cat: 'soil',  def: 'Any material — other than natural soil — in which plants are grown, especially in grow boxes or containers. Examples include coconut coir, perlite, vermiculite, and rice hull.' },
+  { term: 'Vermiculite',         cat: 'soil',  def: 'A lightweight mineral (hydrated magnesium iron aluminium silicate) that expands when heated. Added to growing media to retain moisture and nutrients, and improve aeration.' },
+  { term: 'Water Retention',     cat: 'soil',  def: 'The ability of soil or growing media to hold water available to plant roots between watering or rainfall events.' },
+
+  /* ── CROP MANAGEMENT ── */
+  { term: 'Canopy',              cat: 'crop-management', def: 'The uppermost layer of plant foliage in a field or container system. Managing canopy density affects light interception, airflow, and disease risk.' },
+  { term: 'Crop Rotation',       cat: 'crop-management', def: 'The practice of alternating different crop species on the same plot across growing seasons to maintain soil health, break pest and disease cycles, and replenish nutrients.' },
+  { term: 'Moulding',         cat: 'crop-management', def: 'Mounding soil or substrate around the base of a plant to support roots, exclude light (e.g. potatoes/dasheen), encourage additional root formation, or reduce waterlogging.' },
+  { term: 'Hardening Off',       cat: 'crop-management', def: 'Gradually acclimatising seedlings raised in a protected nursery or indoors to outdoor or field conditions — exposing them to more sunlight, wind, and temperature variation over 1–2 weeks.' },
+  { term: 'Harvest Index',       cat: 'crop-management', def: 'The ratio of the weight of the harvested product to the total above-ground plant weight. A higher harvest index means more of the plant\'s resources went into the edible or usable part.' },
+  { term: 'Intercropping',       cat: 'crop-management', def: 'Growing two or more crop species simultaneously in the same field or bed; can maximise use of space, reduce pest pressure, and improve yield per unit area.' },
+  { term: 'Monoculture',         cat: 'crop-management', def: 'Growing a single crop species on a piece of land, often season after season. Efficient and easy to manage, but increases vulnerability to pests, diseases, and soil depletion.' },
+  { term: 'Polyculture',         cat: 'crop-management', def: 'Growing two or more crop species on the same piece of land at the same time; mimics natural plant communities and can improve biodiversity and resilience.' },
+  { term: 'Pruning',             cat: 'crop-management', def: 'Selectively removing plant parts — branches, leaves, or suckers — to improve plant shape, airflow, light penetration, and to direct energy into fruit or root production.' },
+  { term: 'Spacing',             cat: 'crop-management', def: 'The distance between individual plants in a row and between rows. Correct spacing reduces competition for light, water, and nutrients, and improves airflow to reduce disease.' },
+  { term: 'Staking',             cat: 'crop-management', def: 'Using a stake, pole, or trellis to physically support a plant — common for tomatoes, climbing beans, and cucumbers — to keep stems and fruit off the ground.' },
+  { term: 'Sucker (Tomato)',     cat: 'crop-management', def: 'A vigorous side shoot that grows in the axil (junction) between a leaf stem and the main stem of a tomato plant. Usually removed in managed production to direct energy into fruit.' },
+  { term: 'Thinning',            cat: 'crop-management', def: 'Removing excess seedlings after germination to give the remaining plants adequate space, light, and nutrients for healthy development.' },
+  { term: 'Topping',             cat: 'crop-management', def: 'Removing the growing tip (apical bud) of a plant to stop upward growth, encourage side branching, or limit plant height.' },
+  { term: 'Transplanting',       cat: 'crop-management', def: 'Moving a seedling from a nursery tray or seedbed into its final growing position in the field or grow box.' },
+  { term: 'Yield',               cat: 'crop-management', def: 'The total amount (weight or volume) of a crop harvested from a given area of land, usually expressed as kg/m² or tonnes/hectare.' },
+
+  /* ── NUTRIENTS & FERTILIZERS ── */
+  { term: 'Calcium (Ca)',        cat: 'nutrients', def: 'A macronutrient essential for cell wall strength and root development. Deficiency causes blossom end rot in tomatoes and tip burn in lettuce; linked to uneven watering.' },
+  // { term: 'Electrical Conductivity (EC)', cat: 'nutrients', def: 'A measure of the concentration of dissolved salts (nutrients) in a water or nutrient solution. Too low = plants hungry; too high = nutrient burn. Measured in mS/cm.' },
+  { term: 'Fertigation',         cat: 'nutrients', def: 'Applying dissolved fertilisers directly to plants through an irrigation system, delivering nutrients efficiently to the root zone and reducing waste.' },
+  { term: 'Inorganic Fertiliser', cat: 'nutrients', def: 'Manufactured, concentrated fertiliser containing specific nutrients (e.g. urea, superphosphate). Releases nutrients quickly but can cause salt build-up if over-applied.' },
+  { term: 'Macronutrients',      cat: 'nutrients', def: 'Nutrients required by plants in large amounts: nitrogen (N), phosphorus (P), potassium (K), calcium (Ca), magnesium (Mg), and sulphur (S).' },
+  { term: 'Micronutrients',      cat: 'nutrients', def: 'Nutrients required by plants in very small (trace) amounts: iron (Fe), manganese (Mn), zinc (Zn), copper (Cu), boron (B), molybdenum (Mo), and chlorine (Cl). Deficiencies cause visible symptoms despite being needed in tiny quantities.' },
+  { term: 'Nitrogen (N)',        cat: 'nutrients', def: 'The primary macronutrient responsible for leafy, vegetative growth and the dark green colour of leaves. Deficiency causes yellowing (chlorosis) of older leaves first.' },
+  { term: 'NPK',                 cat: 'nutrients', def: 'The shorthand for the three primary plant macronutrients shown on fertiliser labels: Nitrogen (N) for leaf growth, Phosphorus (P) for roots and flowering, Potassium (K) for fruit quality and disease resistance.' },
+  { term: 'Nutrient Deficiency', cat: 'nutrients', def: 'A condition where a plant lacks sufficient quantities of one or more essential nutrients, causing characteristic visible symptoms such as chlorosis, necrosis, or stunted growth.' },
+  { term: 'Nitrogen Cycle',      cat: 'nutrients', def: 'The continuous movement and transformation of nitrogen through the atmosphere, soil, plants, and animals, including processes such as nitrogen fixation, nitrification, and denitrification.' },
+  { term: 'Organic Fertiliser',  cat: 'nutrients', def: 'Fertiliser derived from natural sources — compost, manure, bone meal, fish emulsion. Releases nutrients slowly as it decomposes; improves soil structure over time.' },
+  { term: 'Phosphorus (P)',      cat: 'nutrients', def: 'A primary macronutrient essential for root development, energy transfer, and flowering and fruit set. Deficiency often causes purplish discolouration on the undersides of leaves.' },
+  { term: 'Potassium (K)',       cat: 'nutrients', def: 'A primary macronutrient important for fruit quality, disease resistance, water regulation, and enzyme activation. Deficiency causes brown, scorched leaf margins (edges) on older leaves.' },
+
+  /* ── PESTS & DISEASES ── */
+  { term: 'Aphid',               cat: 'pests', def: 'A small, soft-bodied insect (often green, black, or yellow) that feeds by sucking plant sap. Colonies multiply rapidly; aphids weaken plants and transmit viruses.' },
+  { term: 'Biological Control',  cat: 'pests', def: 'Using living organisms — predatory insects (e.g. ladybirds eating aphids), parasitic wasps, or beneficial microbes — to control pest or disease populations naturally.' },
+  { term: 'Blossom End Rot',     cat: 'pests', def: 'A physiological disorder (not an infectious disease) appearing as dark, sunken, leathery patches at the blossom end of tomatoes and peppers. Caused by calcium deficiency in the fruit, often triggered by irregular watering.' },
+  { term: 'Damping Off',         cat: 'pests', def: 'A fungal disease that causes young seedlings to rot and collapse at the soil line shortly after germination. Common in overcrowded seedling trays with poor drainage or poor airflow.' },
+  { term: 'Disease',             cat: 'pests', def: 'An abnormal condition in a plant that impairs its normal function, caused by a pathogen (fungus, bacterium, virus, nematode) or by environmental stress.' },
+  { term: 'Early Blight',        cat: 'pests', def: 'A common fungal disease of tomatoes caused by Alternaria solani. Produces dark brown spots with concentric "bull\'s eye" rings on older, lower leaves; spreads upward in warm, wet conditions.' },
+  { term: 'Fungicide',           cat: 'pests', def: 'A chemical substance used to kill or suppress fungal pathogens. Can be preventive (applied before infection) or curative. Examples include copper-based fungicides and mancozeb.' },
+  { term: 'Herbicide',           cat: 'pests', def: 'A chemical used to kill or suppress unwanted plants (weeds) competing with crops for light, water, and nutrients.' },
+  { term: 'Integrated Pest Management (IPM)', cat: 'pests', def: 'A sustainable pest control strategy that combines biological, cultural, mechanical, and chemical methods to manage pest populations below economically damaging levels with minimal environmental impact.' },
+  { term: 'Late Blight',         cat: 'pests', def: 'A devastating disease caused by the water mould Phytophthora infestans, affecting tomatoes and potatoes. Causes rapid brown-black rot of leaves, stems, and fruit in cool, humid conditions. Historically caused the Irish Famine (1840s).' },
+  { term: 'Nematode',            cat: 'pests', def: 'Microscopic roundworms living in soil. Root-knot nematodes (Meloidogyne spp.) infect plant roots, causing galls (swellings), stunted growth, and reduced yield; a serious problem in tropical soils.' },
+  { term: 'Pathogen',            cat: 'pests', def: 'Any organism that causes disease in a plant, including fungi, bacteria, viruses, and nematodes.' },
+  { term: 'Pest',                cat: 'pests', def: 'Any organism — insect, mite, rodent, bird, or other animal — that damages crops, reduces yield, or lowers produce quality.' },
+  { term: 'Pesticide',           cat: 'pests', def: 'A chemical substance used to kill or control pests. The term covers insecticides (insects), fungicides (fungi), herbicides (weeds), and rodenticides (rodents).' },
+  { term: 'Root Rot',            cat: 'pests', def: 'Decay of plant roots caused by waterlogged, oxygen-poor conditions combined with fungal pathogens (e.g. Pythium spp.). Symptoms include wilting, yellowing, and eventual plant death despite wet soil.' },
+  { term: 'Weed',                cat: 'pests', def: 'Any plant growing where it is not wanted. Weeds compete with crops for light, water, nutrients, and space, and may harbour pests and diseases.' },
+  { term: 'Whitefly',            cat: 'pests', def: 'A tiny, white-winged insect (Bemisia tabaci and others) that sucks plant sap, excretes sticky honeydew (promoting sooty mould), and transmits viruses. A major greenhouse and field pest in the tropics.' },
+
+  /* ── PROPAGATION ── */
+  { term: 'Asexual / Vegetative Propagation', cat: 'propagation', def: 'Reproducing plants from non-seed plant parts — cuttings, tubers, suckers, runners, or tissue culture. Offspring are genetically identical (clones) to the parent plant.' },
+  { term: 'Cutting',             cat: 'propagation', def: 'A piece of stem, leaf, or root removed from a parent plant and placed in growing media under the right conditions to form roots and become a new plant.' },
+  { term: 'Cross-Pollination',   cat: 'propagation', def: 'The transfer of pollen from the flower of one plant to the flower of a different plant of the same species; increases genetic diversity in the offspring.' },
+  { term: 'Grafting',            cat: 'propagation', def: 'Joining a shoot (scion) from one plant onto the rooted stem (rootstock) of another so that they grow together. Used to combine disease-resistant roots with high-yielding top growth.' },
+  { term: 'Layering',            cat: 'propagation', def: 'A vegetative propagation technique where a stem is bent to the ground (or wounded and wrapped in moist medium) and encouraged to form roots while still attached to the parent plant.' },
+  { term: 'Nursery',             cat: 'propagation', def: 'A protected environment — seedling trays, shade house, or greenhouse — where seeds are germinated and young plants are raised before transplanting to their final position.' },
+  { term: 'Pollination',         cat: 'propagation', def: 'The transfer of pollen from the anther (male part) to the stigma (female part) of a flower, enabling fertilisation and seed/fruit development.' },
+  { term: 'Propagation',         cat: 'propagation', def: 'The process of reproducing plants, either sexually (from seed) or asexually (vegetatively). The method chosen affects the uniformity, cost, and time to maturity of new plants.' },
+  { term: 'Seed Viability',      cat: 'propagation', def: 'The ability of a seed to germinate and produce a healthy seedling. Viability declines with age, heat, and moisture; a germination test reveals the percentage of viable seeds in a batch.' },
+  { term: 'Seedling',            cat: 'propagation', def: 'A young plant that has recently germinated from a seed and not yet been transplanted; it still depends on reserves in the seed cotyledons or has just developed its first true leaves.' },
+  { term: 'Self-Pollination',    cat: 'propagation', def: 'The transfer of pollen from the anther to the stigma of the same flower or another flower on the same plant. Common in tomatoes; produces offspring similar to the parent.' },
+  { term: 'Sexual Propagation',  cat: 'propagation', def: 'Reproducing plants from seeds formed by pollination and fertilisation. Offspring may vary genetically from the parent; the most common method for most annual crops.' },
+
+  /* ── IRRIGATION & WATER ── */
+  { term: 'Drip Irrigation',     cat: 'irrigation', def: 'A water-efficient irrigation method that delivers water slowly and directly to the plant root zone through emitters (drippers) along a hose or pipe, minimising evaporation and weed growth.' },
+  { term: 'Evapotranspiration',  cat: 'irrigation', def: 'The combined water loss from a cropped surface — evaporation from the soil plus transpiration from plants. Used to calculate how much irrigation water a crop needs.' },
+  { term: 'Irrigation',          cat: 'irrigation', def: 'The artificial application of water to crops to supplement rainfall. Essential during dry seasons in the Caribbean to maintain crop production.' },
+  { term: 'Overwatering',        cat: 'irrigation', def: 'Applying more water than plants can use, causing waterlogged, oxygen-depleted conditions in the root zone. Leads to root rot, nutrient leaching, and disease. A common error in grow box production.' },
+  { term: 'Sprinkler Irrigation', cat: 'irrigation', def: 'An irrigation method that distributes water through the air as small droplets, similar to natural rainfall. Less water-efficient than drip irrigation but easier to install over large areas.' },
+  { term: 'Water Stress',        cat: 'irrigation', def: 'A condition where a plant cannot access sufficient water, leading to wilting, stomatal closure (reducing photosynthesis), stunted growth, and reduced yield or fruit quality.' },
+
+  /* ── GROW BOX ── */
+  { term: 'Container Gardening', cat: 'grow-box', def: 'Growing plants in portable containers, pots, or boxes rather than open ground; allows control over growing medium, drainage, and nutrient supply, and is ideal for small or paved spaces.' },
+  { term: 'Grow Box',            cat: 'grow-box', def: 'A contained growing structure — typically a wooden, concrete, or recycled-material box or trough — used for intensive, controlled vegetable and herb production. Central to the CVQ Level 1 Grow Box Operations unit.' },
+  { term: 'Growing Medium',      cat: 'grow-box', def: 'The material filling a grow box in which plant roots anchor and from which they absorb water and nutrients. Common options include coconut coir, rice hull, composted material, and blended substrates.' },
+  { term: 'Nutrient Solution',   cat: 'grow-box', def: 'Water in which plant nutrients are dissolved, applied directly to plant roots — especially in soilless grow box or hydroponic systems — to supply all required elements.' },
+  { term: 'Plant Density',       cat: 'grow-box', def: 'The number of plants per unit area in a grow box or field. Higher density can increase total yield from limited space, but increases competition for light, water, and nutrients.' },
+  { term: 'Raised Bed',          cat: 'grow-box', def: 'A growing area where soil or substrate is elevated above the surrounding ground level in a frame or mound. Improves drainage, warms faster, and reduces back strain during maintenance.' },
+
+  /* ── CARIBBEAN AGRICULTURE ── */
+  { term: 'CSEC Agricultural Science', cat: 'caribbean', def: 'The Caribbean Secondary Education Certificate subject covering plant science, animal science, soils, farm management, and agricultural economics, examined by the Caribbean Examinations Council (CXC).' },
+  { term: 'CVQ',                 cat: 'caribbean', def: 'Caribbean Vocational Qualification — a competency-based certification for technical and vocational skills, offered at Levels 1–5. Level 1 Crop Production covers practical farming skills including grow box operations.' },
+  { term: 'Dry Season',          cat: 'caribbean', def: 'The period of significantly reduced rainfall in the Caribbean. In Trinidad and Tobago, typically January to May. Crops require irrigation during this period.' },
+  { term: 'Food Security',       cat: 'caribbean', def: 'The state of having reliable, sufficient access to safe and nutritious food. A key objective of Caribbean agricultural policy given the region\'s high dependence on food imports.' },
+  { term: 'Kitchen Garden',      cat: 'caribbean', def: 'A small plot, often at the household level, where vegetables, herbs, and sometimes fruit trees are grown for family consumption. A traditional and common practice throughout the Caribbean.' },
+  { term: 'Tropical Climate',    cat: 'caribbean', def: 'The warm, humid climate of the Caribbean, characterised by high temperatures year-round (24–32°C), high humidity, and distinct wet and dry seasons; shapes which crops can be grown and when.' },
+  { term: 'Wet Season',          cat: 'caribbean', def: 'The period of high rainfall in the Caribbean. In Trinidad and Tobago, typically June to December. Crops are more susceptible to fungal diseases and root rot during this period.' },
+];
+
+/* ── State ── */
+let activeCat = 'all';
+let searchVal  = '';
+
+/* ── Build category buttons ── */
+const catFiltersEl = document.getElementById('catFilters');
+
+function buildCatButtons() {
+  const allBtn = makeBtn('All', 'all');
+  allBtn.classList.add('active');
+  catFiltersEl.appendChild(allBtn);
+  Object.entries(CATEGORIES).forEach(([key, label]) => {
+    catFiltersEl.appendChild(makeBtn(label, key));
+  });
+}
+
+function makeBtn(label, key) {
+  const btn = document.createElement('button');
+  btn.className = 'cat-btn';
+  btn.textContent = label;
+  btn.dataset.cat = key;
+  btn.addEventListener('click', () => {
+    activeCat = key;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === key));
+    render();
+  });
+  return btn;
+}
+
+/* ── Highlight search term ── */
+function highlight(text, query) {
+  if (!query) return escHtml(text);
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`(${escaped})`, 'gi');
+  return escHtml(text).replace(re, '<mark>$1</mark>');
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ── Render ── */
+function render() {
+  const q = searchVal.trim().toLowerCase();
+  const list = document.getElementById('termList');
+  const noResults = document.getElementById('noResults');
+  const bar = document.getElementById('resultsBar');
+
+  const filtered = TERMS.filter(t => {
+    const catOk  = activeCat === 'all' || t.cat === activeCat;
+    const textOk = !q || t.term.toLowerCase().includes(q) || t.def.toLowerCase().includes(q);
+    return catOk && textOk;
+  });
+
+  list.innerHTML = '';
+
+  if (filtered.length === 0) {
+    noResults.style.display = 'block';
+    bar.textContent = 'No matching terms.';
+  } else {
+    noResults.style.display = 'none';
+    bar.textContent = `Showing ${filtered.length} of ${TERMS.length} terms`;
+
+    filtered.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'term-card';
+      card.innerHTML = `
+        <div class="term-header">
+          <span class="term-name">${highlight(t.term, searchVal.trim())}</span>
+          <span class="term-cat">${CATEGORIES[t.cat] || t.cat}</span>
+        </div>
+        <p class="term-def">${highlight(t.def, searchVal.trim())}</p>
+      `;
+      list.appendChild(card);
+    });
+  }
+}
+
+/* ── Search ── */
+document.getElementById('search').addEventListener('input', e => {
+  searchVal = e.target.value;
+  render();
+});
+
+/* ── Init ── */
+buildCatButtons();
+render();
+</script>
+</body>
+</html>
