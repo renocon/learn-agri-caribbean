@@ -82,6 +82,12 @@ learn-agri-caribbean/
 
 Each tool is a single self-contained folder with one `index.html`. No build tools, no npm. See [CLAUDE.md](CLAUDE.md) for full project conventions.
 
+## Disclaimer
+
+All content is provided for general educational reference only. The creators accept no liability for inaccuracies, examination results, or decisions made based on information from this site. Always verify against your official syllabus and product labels.
+
+Full disclaimer: https://renocon.github.io/learn-agri-caribbean/disclaimer/
+
 ## License
 
 See [LICENSE](LICENSE).
