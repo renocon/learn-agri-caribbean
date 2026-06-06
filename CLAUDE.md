@@ -68,10 +68,12 @@ The disclaimer page itself uses `<meta name="robots" content="noindex, follow">`
 - Primary: teachers using the site for classroom demos (projected screen, internet available).
 - Design for clarity at projection resolution; prefer large text and high contrast.
 
-## Tools planned
-| Folder | Name |
-|--------|------|
-| `docs/glossary/` | Reference Glossary |
-| `docs/crop-calendar/` | Crop Calendar / Planner |
-| `docs/grow-box/` | Grow Box Simulator |
-| `docs/tomato-sim/` | Tomato Growth Simulator |
+## Tools
+| Folder | Name | Status |
+|--------|------|--------|
+| `docs/glossary/` | Reference Glossary | ✅ Live |
+| `docs/weedicide-calc/` | Weedicide Rate Calculator | ✅ Live |
+| `docs/crop-calendar/` | Crop Calendar / Planner | Planned |
+| `docs/grow-box/` | Grow Box Simulator | Planned |
+| `docs/tomato-sim/` | Tomato Growth Simulator | Planned |
+| `docs/nutrients/` | Nutrients Learning Tool | Future |

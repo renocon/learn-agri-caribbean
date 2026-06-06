@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weedicide Rate Calculator | Learn Agri Caribbean</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Convert large-scale weedicide label rates (mL/ha, L/ha) to practical home garden mixing quantities. Get per-tank instructions for knapsack, hand-pump, and spray-bottle sprayers.">
+  <meta name="keywords" content="weedicide calculator, herbicide rate converter, Caribbean home garden, mL per hectare home garden, knapsack sprayer mix rate, weedicide dilution, CSEC agricultural science tools">
+  <meta name="author" content="learn-agri-caribbean">
+  <link rel="canonical" href="https://renocon.github.io/learn-agri-caribbean/weedicide-calc/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://renocon.github.io/learn-agri-caribbean/weedicide-calc/">
+  <meta property="og:title" content="Weedicide Rate Calculator | Learn Agri Caribbean">
+  <meta property="og:description" content="Convert large-scale weedicide label rates to practical home garden mixing quantities. Safe, step-by-step mixing instructions for Caribbean home gardeners.">
+  <meta property="og:site_name" content="Learn Agri Caribbean">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Weedicide Rate Calculator | Learn Agri Caribbean">
+  <meta name="twitter:description" content="Convert weedicide label rates (mL/ha, L/ha) to home garden quantities. Knapsack, hand-pump, and spray-bottle instructions.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Weedicide Rate Calculator",
+    "url": "https://renocon.github.io/learn-agri-caribbean/weedicide-calc/",
+    "description": "Convert large-scale weedicide label rates to practical home garden mixing quantities.",
+    "inLanguage": "en",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Learn Agri Caribbean",
+      "url": "https://renocon.github.io/learn-agri-caribbean/"
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d5a1b;
+      --green-mid:   #4a7c2f;
+      --green-light: #c8ddb8;
+      --green-pale:  #f0f5ea;
+      --amber:       #f9a825;
+      --amber-bg:    #fff8e1;
+      --red:         #c62828;
+      --red-light:   #ffebee;
+      --text:        #1a1a1a;
+      --muted:       #666;
+      --border:      #d0d8c8;
+      --white:       #fff;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #f5f0e8;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── MODAL ─────────────────────────────────── */
+    #modalOverlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 100;
+      display: none;
+    }
+    #modalOverlay.open { display: block; }
+
+    #safetyModal {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 101;
+      background: var(--white);
+      border-radius: 10px;
+      max-width: 500px;
+      width: calc(100% - 2rem);
+      padding: 1.75rem 1.75rem 1.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      display: none;
+    }
+    #safetyModal.open { display: block; }
+
+    .modal-badge {
+      display: inline-block;
+      font-size: 2.2rem;
+      margin-bottom: 0.6rem;
+    }
+    #safetyModal h2 {
+      font-size: 1.25rem;
+      color: var(--red);
+      margin-bottom: 0.9rem;
+      line-height: 1.3;
+    }
+    #safetyModal ul {
+      padding-left: 1.3rem;
+      margin-bottom: 1.4rem;
+    }
+    #safetyModal li {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: #333;
+      margin-bottom: 0.4rem;
+    }
+    #modalAck {
+      display: block;
+      width: 100%;
+      background: var(--green-dark);
+      color: var(--white);
+      border: none;
+      border-radius: 7px;
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    #modalAck:hover { background: var(--green-mid); }
+
+    /* ── HEADER ─────────────────────────────────── */
+    header {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 1.5rem 1.5rem 1.25rem;
+    }
+    .header-inner { max-width: 660px; margin: 0 auto; }
+    .back-link {
+      display: inline-block;
+      color: rgba(255,255,255,0.72);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 0.55rem;
+    }
+    .back-link:hover { color: var(--white); }
+    .back-link::before { content: '← '; }
+    header h1 { font-size: 1.85rem; margin-bottom: 0.2rem; }
+    header p  { font-size: 0.88rem; opacity: 0.8; }
+
+    /* ── MAIN ────────────────────────────────────── */
+    main {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    /* ── FORM STEPS ──────────────────────────────── */
+    .step {
+      background: var(--white);
+      border: 2px solid var(--green-light);
+      border-radius: 8px;
+      padding: 1.2rem 1.25rem;
+      margin-bottom: 0.9rem;
+    }
+    .step-label {
+      font-family: monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green-mid);
+      margin-bottom: 0.3rem;
+    }
+    .step h2 {
+      font-size: 0.98rem;
+      margin-bottom: 0.85rem;
+      color: var(--text);
+    }
+
+    /* number + unit toggle row */
+    .input-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+
+    .num-input {
+      font-size: 1.3rem;
+      font-family: inherit;
+      padding: 0.45rem 0.7rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      width: 140px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .num-input:focus { border-color: var(--green-mid); }
+
+    .unit-toggle {
+      display: flex;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .unit-toggle input[type="radio"] { display: none; }
+    .unit-toggle label {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.88rem;
+      font-family: monospace;
+      cursor: pointer;
+      color: var(--muted);
+      user-select: none;
+      transition: background 0.1s, color 0.1s;
+    }
+    .unit-toggle input[type="radio"]:checked + label {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    /* sprayer radio cards */
+    .sprayer-list { display: flex; flex-direction: column; gap: 0.55rem; }
+
+    .sprayer-card {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.7rem 0.9rem;
+      border: 2px solid var(--border);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .sprayer-card:has(input:checked) {
+      border-color: var(--green-mid);
+      background: var(--green-pale);
+    }
+    .sprayer-card input[type="radio"] {
+      accent-color: var(--green-dark);
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+    }
+    .sprayer-icon { font-size: 1.4rem; line-height: 1; }
+    .sprayer-name { flex: 1; font-size: 0.95rem; font-weight: bold; }
+    .tank-size-field {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.83rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .tank-size-input {
+      width: 58px;
+      font-size: 0.88rem;
+      font-family: monospace;
+      padding: 0.2rem 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-align: right;
+      outline: none;
+    }
+    .tank-size-input:focus { border-color: var(--green-mid); }
+
+    /* advanced panel */
+    .adv-btn {
+      display: block;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 0.83rem;
+      color: var(--green-mid);
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0.3rem 0 0;
+      text-align: left;
+    }
+    .adv-panel {
+      display: none;
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .adv-panel.open { display: block; }
+    .adv-panel > label {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .adv-panel small {
+      display: block;
+      font-size: 0.78rem;
+      color: #aaa;
+      line-height: 1.4;
+      margin-top: 0.3rem;
+    }
+
+    /* validation errors */
+    .field-err {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--red);
+      margin-top: 0.35rem;
+    }
+    .field-err.show { display: block; }
+
+    /* calculate button */
+    #calcBtn {
+      display: block;
+      width: 100%;
+      background: var(--green-dark);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 1.1rem;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 0.25rem;
+      transition: background 0.12s;
+    }
+    #calcBtn:hover { background: var(--green-mid); }
+
+    /* ── RESULTS ─────────────────────────────────── */
+    #results { margin-top: 1.5rem; }
+
+    /* hero card */
+    .res-hero {
+      background: var(--green-dark);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 1.5rem 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .res-hero .rh-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-bottom: 0.3rem;
+    }
+    .res-hero .rh-big {
+      font-size: 2.5rem;
+      font-weight: bold;
+      line-height: 1.1;
+    }
+    .res-hero .rh-kitchen {
+      font-size: 1rem;
+      opacity: 0.82;
+      margin-top: 0.2rem;
+    }
+    .res-hero .rh-instr {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.22);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      opacity: 0.92;
+    }
+
+    /* detail table */
+    .res-detail {
+      background: var(--white);
+      border: 2px solid var(--green-light);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .res-detail h3 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+    .drow {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.32rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.91rem;
+      gap: 0.5rem;
+    }
+    .drow:last-child { border-bottom: none; }
+    .drow .dval {
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 0.97rem;
+      color: var(--green-dark);
+      text-align: right;
+    }
+
+    /* partial tank */
+    .partial-card {
+      background: #e8f5e9;
+      border: 1px solid var(--green-light);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+      margin-top: 0.7rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .partial-card strong { color: var(--green-dark); }
+
+    /* syringe warning */
+    .syringe-note {
+      font-size: 0.8rem;
+      color: var(--red);
+      margin-top: 0.55rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--red-light);
+      border-radius: 5px;
+      line-height: 1.45;
+    }
+
+    /* safety reminder */
+    .safety-box {
+      background: var(--amber-bg);
+      border-left: 4px solid var(--amber);
+      border-radius: 0 7px 7px 0;
+      padding: 1rem 1.25rem;
+    }
+    .safety-box h3 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #6d4c41;
+      margin-bottom: 0.55rem;
+    }
+    .safety-box ul { padding-left: 1.2rem; }
+    .safety-box li {
+      font-size: 0.87rem;
+      color: #4e342e;
+      margin-bottom: 0.3rem;
+      line-height: 1.45;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+    footer a { color: #aaa; }
+    footer a:hover { color: var(--green-dark); }
+  </style>
+</head>
+<body>
+
+<!-- ── SAFETY MODAL ───────────────────────────────── -->
+<div id="modalOverlay"></div>
+<div id="safetyModal" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+  <div class="modal-badge">⚠️</div>
+  <h2 id="modalHeading">Read before you mix</h2>
+  <ul>
+    <li><strong>Your product label is the authority.</strong> This calculator is a guide — always follow label instructions first.</li>
+    <li>Wear <strong>gloves, eye protection, and a face mask</strong> when measuring, mixing, and spraying.</li>
+    <li>Always add concentrate <strong>to water</strong> — never pour water into concentrate.</li>
+    <li>Keep <strong>children, pets, and bystanders</strong> away from the spray area during and after application.</li>
+    <li>Observe the <strong>re-entry interval</strong> stated on your label before re-entering treated areas.</li>
+    <li>Store weedicide in its <strong>original, labelled container</strong>. Never store in food or drink bottles.</li>
+    <li>Dispose of empty containers responsibly — <strong>do not re-use or burn</strong> them.</li>
+  </ul>
+  <button id="modalAck">I understand — open the calculator</button>
+</div>
+
+<!-- ── HEADER ─────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <a class="back-link" href="../index.html">Home</a>
+    <h1>Weedicide Rate Calculator</h1>
+    <p>Convert label rates (mL/ha · L/ha) to practical home garden quantities</p>
+  </div>
+</header>
+
+<!-- ── MAIN ──────────────────────────────────────── -->
+<main>
+
+  <!-- Step 1: Label rate -->
+  <div class="step">
+    <p class="step-label">Step 1</p>
+    <h2>Label rate — as shown on your weedicide bottle</h2>
+    <div class="input-row">
+      <input id="rateVal" class="num-input" type="number" min="0.001" step="any" placeholder="e.g. 2.5">
+      <div class="unit-toggle">
+        <input type="radio" id="rUnit_mL" name="rateUnit" value="mL" checked>
+        <label for="rUnit_mL">mL / ha</label>
+        <input type="radio" id="rUnit_L" name="rateUnit" value="L">
+        <label for="rUnit_L">L / ha</label>
+      </div>
+    </div>
+    <p class="field-err" id="rateErr">Enter the rate from your label (must be greater than 0).</p>
+  </div>
+
+  <!-- Step 2: Garden area -->
+  <div class="step">
+    <p class="step-label">Step 2</p>
+    <h2>Your garden area</h2>
+    <div class="input-row">
+      <input id="areaVal" class="num-input" type="number" min="0.1" step="any" placeholder="e.g. 50">
+      <div class="unit-toggle">
+        <input type="radio" id="aUnit_m2"  name="areaUnit" value="m2"  checked>
+        <label for="aUnit_m2">m²</label>
+        <input type="radio" id="aUnit_ft2" name="areaUnit" value="ft2">
+        <label for="aUnit_ft2">sq ft</label>
+      </div>
+    </div>
+    <p class="field-err" id="areaErr">Enter your garden area (must be greater than 0).</p>
+  </div>
+
+  <!-- Step 3: Sprayer -->
+  <div class="step">
+    <p class="step-label">Step 3</p>
+    <h2>Your sprayer</h2>
+    <div class="sprayer-list">
+
+      <label class="sprayer-card">
+        <input type="radio" name="sprayer" value="bottle">
+        <span class="sprayer-icon">🧴</span>
+        <span class="sprayer-name">Spray bottle</span>
+        <span class="tank-size-field">
+          Tank:&nbsp;<input class="tank-size-input" id="tank_bottle" type="number" value="0.75" min="0.1" step="0.05">&nbsp;L
+        </span>
+      </label>
+
+      <label class="sprayer-card">
+        <input type="radio" name="sprayer" value="handpump">
+        <span class="sprayer-icon">💧</span>
+        <span class="sprayer-name">Hand-pump sprayer</span>
+        <span class="tank-size-field">
+          Tank:&nbsp;<input class="tank-size-input" id="tank_handpump" type="number" value="1.5" min="0.1" step="0.1">&nbsp;L
+        </span>
+      </label>
+
+      <label class="sprayer-card">
+        <input type="radio" name="sprayer" value="knapsack" checked>
+        <span class="sprayer-icon">🎒</span>
+        <span class="sprayer-name">Knapsack sprayer</span>
+        <span class="tank-size-field">
+          Tank:&nbsp;<input class="tank-size-input" id="tank_knapsack" type="number" value="16" min="1" step="0.5">&nbsp;L
+        </span>
+      </label>
+
+    </div>
+
+    <button class="adv-btn" id="advToggle" type="button">&#9658; Advanced: spray coverage rate</button>
+    <div class="adv-panel" id="advPanel">
+      <label for="coverageVal">
+        Coverage rate (litres of spray solution per hectare):
+        <input id="coverageVal" class="num-input" type="number" value="300" min="50" step="10" style="width:100px; font-size:1rem; margin-top:0.4rem;">
+      </label>
+      <small>300&nbsp;L/ha is standard for a knapsack sprayer. Increase if you spray heavily; decrease for a fine targeted mist. This controls how much water you use per area — it does not change the total concentrate.</small>
+    </div>
+  </div>
+
+  <button id="calcBtn" type="button">Calculate &#8594;</button>
+
+  <!-- ── RESULTS ───────────────────────────────── -->
+  <div id="results" hidden>
+
+    <div class="res-hero">
+      <p class="rh-label">Concentrate per full tank</p>
+      <p class="rh-big"    id="resPerTank">—</p>
+      <p class="rh-kitchen" id="resKitchen"></p>
+      <p class="rh-instr"   id="resInstr"></p>
+    </div>
+
+    <div class="res-detail">
+      <h3>Full breakdown &mdash; <span id="resAreaLabel"></span></h3>
+
+      <div class="drow">
+        <span>Total concentrate needed</span>
+        <span class="dval" id="resTotalConc">—</span>
+      </div>
+      <div class="drow">
+        <span>Total spray solution</span>
+        <span class="dval" id="resTotalSol">—</span>
+      </div>
+      <div class="drow">
+        <span>Full tanks to mix</span>
+        <span class="dval" id="resFullTanks">—</span>
+      </div>
+      <div class="drow">
+        <span>Mixing ratio</span>
+        <span class="dval" id="resMixRatio">—</span>
+      </div>
+
+      <div class="partial-card" id="resPartialCard" style="display:none">
+        <strong>Last (partial) tank:</strong> add <strong id="resPartConc">—</strong>
+        <span id="resPartKitchen" style="color:var(--green-mid);font-size:0.86rem;"></span>
+        to <strong id="resPartWater">—</strong> of water.
+      </div>
+
+      <div class="syringe-note" id="resSyringeNote" style="display:none">
+        &#9888; Some quantities here are very small. A measuring syringe (available at most pharmacies) will give more accuracy than kitchen spoons alone.
+      </div>
+    </div>
+
+    <div class="safety-box">
+      <h3>&#9888; Safety reminders</h3>
+      <ul>
+        <li>Add concentrate <strong>to water</strong> — never the reverse.</li>
+        <li>Wear <strong>gloves and eye protection</strong> when measuring and mixing.</li>
+        <li>Keep children, pets, and bystanders away from the spray area.</li>
+        <li>Observe the <strong>re-entry interval</strong> on your label.</li>
+        <li>This result is a guide only — your <strong>product label</strong> takes precedence.</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <a href="../index.html">Learn Agri Caribbean</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../disclaimer/index.html">Disclaimer</a>
+</footer>
+
+<script>
+/* ── MODAL ───────────────────────────────────────── */
+const ACK_KEY = 'weedicide-safety-acked';
+
+function openModal() {
+  document.getElementById('safetyModal').classList.add('open');
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('safetyModal').classList.remove('open');
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+document.getElementById('modalAck').addEventListener('click', () => {
+  try { localStorage.setItem(ACK_KEY, '1'); } catch (e) {}
+  closeModal();
+});
+
+try {
+  if (!localStorage.getItem(ACK_KEY)) openModal();
+} catch (e) {
+  openModal();
+}
+
+/* ── ADVANCED PANEL ──────────────────────────────── */
+const advBtn   = document.getElementById('advToggle');
+const advPanel = document.getElementById('advPanel');
+advBtn.addEventListener('click', () => {
+  const open = advPanel.classList.toggle('open');
+  advBtn.innerHTML = (open ? '&#9660;' : '&#9658;') + ' Advanced: spray coverage rate';
+});
+
+/* ── HELPERS ─────────────────────────────────────── */
+function fmtMl(mL) {
+  if (mL >= 1000) {
+    const L = mL / 1000;
+    return (Math.round(L * 100) / 100) + ' L';
+  }
+  if (mL >= 10) return (Math.round(mL * 10) / 10) + ' mL';
+  return (Math.round(mL * 100) / 100) + ' mL';
+}
+
+function fmtL(L) {
+  if (L < 1) return Math.round(L * 1000) + ' mL';
+  return (Math.round(L * 10) / 10) + ' L';
+}
+
+/* Kitchen equivalents — returns { text, warn } or null */
+function toKitchen(mL) {
+  if (mL <= 0 || mL > 120) return null;
+  if (mL < 0.4) return { text: 'less than ⅛ tsp', warn: true };
+
+  const QRTR_TSP = [
+    [0.25,'¼ tsp'],[0.5,'½ tsp'],[0.75,'¾ tsp'],
+    [1,'1 tsp'],[1.25,'1¼ tsp'],[1.5,'1½ tsp'],[1.75,'1¾ tsp'],
+    [2,'2 tsp'],[2.25,'2¼ tsp'],[2.5,'2½ tsp'],[2.75,'2¾ tsp'],[3,'3 tsp']
+  ];
+  const QRTR_TBSP = [
+    [1,'1 tbsp'],[1.25,'1¼ tbsp'],[1.5,'1½ tbsp'],[1.75,'1¾ tbsp'],
+    [2,'2 tbsp'],[2.5,'2½ tbsp'],[3,'3 tbsp'],[3.5,'3½ tbsp'],
+    [4,'4 tbsp'],[5,'5 tbsp'],[6,'6 tbsp'],[7,'7 tbsp'],[8,'8 tbsp']
+  ];
+
+  const snapTo = (val, steps) => {
+    let best = null, bestDist = Infinity;
+    for (const [snap, label] of steps) {
+      const d = Math.abs(val - snap);
+      if (d < bestDist) { bestDist = d; best = [snap, label]; }
+    }
+    return best;
+  };
+
+  if (mL < 15) {
+    const tsp = mL / 5;
+    const [snap, label] = snapTo(tsp, QRTR_TSP);
+    if (Math.abs(tsp - snap) / snap < 0.15) return { text: '≈ ' + label, warn: false };
+    return { text: '≈ ' + (Math.round(tsp * 4) / 4).toFixed(2) + ' tsp', warn: false };
+  }
+  const tbsp = mL / 15;
+  const [snap, label] = snapTo(tbsp, QRTR_TBSP);
+  if (Math.abs(tbsp - snap) / snap < 0.12) return { text: '≈ ' + label, warn: false };
+  return { text: '≈ ' + tbsp.toFixed(1) + ' tbsp', warn: false };
+}
+
+/* ── VALIDATION ──────────────────────────────────── */
+function validate() {
+  let ok = true;
+  const rate = parseFloat(document.getElementById('rateVal').value);
+  const area = parseFloat(document.getElementById('areaVal').value);
+  const rErr = document.getElementById('rateErr');
+  const aErr = document.getElementById('areaErr');
+  if (!rate || rate <= 0) { rErr.classList.add('show'); ok = false; }
+  else                    { rErr.classList.remove('show'); }
+  if (!area || area <= 0) { aErr.classList.add('show'); ok = false; }
+  else                    { aErr.classList.remove('show'); }
+  return ok;
+}
+
+/* ── CALCULATE ───────────────────────────────────── */
+function calculate() {
+  if (!validate()) return;
+
+  /* inputs */
+  const rateRaw = parseFloat(document.getElementById('rateVal').value);
+  const rateUnit = document.querySelector('input[name="rateUnit"]:checked').value;
+  const rate_mL_ha = rateUnit === 'L' ? rateRaw * 1000 : rateRaw;
+
+  const areaRaw = parseFloat(document.getElementById('areaVal').value);
+  const areaUnit = document.querySelector('input[name="areaUnit"]:checked').value;
+  const area_m2 = areaUnit === 'ft2' ? areaRaw * 0.092903 : areaRaw;
+  const area_ha = area_m2 / 10000;
+
+  const sprayerKey = document.querySelector('input[name="sprayer"]:checked').value;
+  const tank_L     = parseFloat(document.getElementById('tank_' + sprayerKey).value);
+  const coverage   = parseFloat(document.getElementById('coverageVal').value) || 300;
+
+  /* maths */
+  const totalConc_mL   = rate_mL_ha * area_ha;
+  const totalSol_L     = coverage * area_ha;
+  const tanksNeeded    = totalSol_L / tank_L;
+  const fullTanks      = Math.floor(tanksNeeded);
+  const partialFrac    = tanksNeeded - fullTanks;
+  const concPerTank_mL = (rate_mL_ha / coverage) * tank_L;   /* independent of area */
+  const concPerL_mL    = rate_mL_ha / coverage;
+
+  /* labels */
+  const sprayerLabel = { bottle: 'spray bottle', handpump: 'hand-pump sprayer', knapsack: 'knapsack sprayer' }[sprayerKey];
+  const areaDisp = areaUnit === 'ft2'
+    ? areaRaw + ' sq ft (' + Math.round(area_m2) + ' m²)'
+    : areaRaw + ' m²';
+
+  /* hero card */
+  document.getElementById('resPerTank').textContent = fmtMl(concPerTank_mL);
+
+  const k = toKitchen(concPerTank_mL);
+  const kitchenEl = document.getElementById('resKitchen');
+  kitchenEl.textContent = k ? k.text : '';
+
+  const instrEl = document.getElementById('resInstr');
+  if (tanksNeeded <= 1.02) {
+    instrEl.innerHTML =
+      'Add <strong>' + fmtMl(totalConc_mL) + '</strong> of concentrate to ' +
+      '<strong>' + fmtL(totalSol_L) + '</strong> of water in your ' + sprayerLabel + '.';
+  } else {
+    instrEl.innerHTML =
+      'Add <strong>' + fmtMl(concPerTank_mL) + '</strong> of concentrate to each ' +
+      '<strong>full ' + fmtL(tank_L) + '</strong> tank.';
+  }
+
+  /* detail rows */
+  document.getElementById('resAreaLabel').textContent = areaDisp;
+  document.getElementById('resTotalConc').textContent = fmtMl(totalConc_mL);
+  document.getElementById('resTotalSol').textContent  = fmtL(totalSol_L);
+  document.getElementById('resFullTanks').textContent = tanksNeeded < 1
+    ? 'partial fill only'
+    : fullTanks + (fullTanks === 1 ? ' full tank' : ' full tanks');
+  document.getElementById('resMixRatio').textContent  =
+    (Math.round(concPerL_mL * 1000) / 1000) + ' mL per litre';
+
+  /* partial tank */
+  const partCard  = document.getElementById('resPartialCard');
+  const partConc  = document.getElementById('resPartConc');
+  const partWater = document.getElementById('resPartWater');
+  const partKitchen = document.getElementById('resPartKitchen');
+  const showPartial = partialFrac > 0.01 && fullTanks >= 1;
+  partCard.style.display = showPartial ? 'block' : 'none';
+  if (showPartial) {
+    const pConc_mL  = partialFrac * concPerTank_mL;
+    const pWater_L  = partialFrac * tank_L;
+    partConc.textContent  = fmtMl(pConc_mL);
+    partWater.textContent = fmtL(pWater_L);
+    const pk = toKitchen(pConc_mL);
+    partKitchen.textContent = pk ? ' (' + pk.text + ')' : '';
+  }
+
+  /* syringe warning */
+  const syringeNote = document.getElementById('resSyringeNote');
+  const needSyringe = (k && k.warn) || concPerTank_mL < 1;
+  syringeNote.style.display = needSyringe ? 'block' : 'none';
+
+  /* show results */
+  const resultsEl = document.getElementById('results');
+  resultsEl.hidden = false;
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('calcBtn').addEventListener('click', calculate);
+
+/* Enter key on any number input triggers calculate */
+document.querySelectorAll('.num-input').forEach(el =>
+  el.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); })
+);
+</script>
+</body>
+</html>

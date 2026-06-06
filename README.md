@@ -40,6 +40,16 @@ Then open `http://localhost:8080`.
 - Category filter pills to narrow by topic
 - Projection-friendly: large text, high contrast
 
+### Weedicide Rate Calculator — `docs/weedicide-calc/`
+**Live:** https://renocon.github.io/learn-agri-caribbean/weedicide-calc/
+
+- Enter a label rate (mL/ha or L/ha) and your garden area (m² or sq ft)
+- Choose your sprayer: spray bottle, hand-pump, or knapsack — with editable tank size
+- Outputs per-tank concentrate amount with kitchen teaspoon/tablespoon equivalents
+- Handles full tanks + a partial last tank automatically
+- One-time safety acknowledgement modal; safety reminders shown with every result
+- Advanced setting: adjust spray coverage rate (default 300 L/ha)
+
 ---
 
 ## Project structure
