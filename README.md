@@ -50,6 +50,16 @@ Then open `http://localhost:8080`.
 - One-time safety acknowledgement modal; safety reminders shown with every result
 - Advanced setting: adjust spray coverage rate (default 300 L/ha)
 
+### Tomato Growth Simulator — `docs/tomato-sim/`
+**Live:** https://renocon.github.io/learn-agri-caribbean/tomato-sim/
+
+- 13-stage interactive SVG simulator — from seed to harvest or Blossom End Rot (BER)
+- Branching path at Fruit Set: choose good management (healthy harvest) or neglect (BER progression)
+- Six information cards per stage: what's happening, farmer actions, what to observe, nutrition, weather conditions
+- Animated SVG plant redraws at each stage with CSS fade transitions
+- Autoplay mode cycles through all stages automatically
+- Stage timeline with clickable navigation dots
+
 ---
 
 ## Project structure
