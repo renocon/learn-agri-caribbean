@@ -1,0 +1,204 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green-dark: #2d5a1b;
+  --green-mid: #3e7c1f;
+  --green-pale: #eef5e8;
+  --amber: #d97706;
+  --amber-pale: #fff4e2;
+  --ink: #1d2418;
+  --paper: #fafaf5;
+  --card-border: #d8e2cc;
+  --topbar-h: 58px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* ---------- Header bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--green-dark);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-height: var(--topbar-h);
+  padding: 0.5rem 1.2rem;
+}
+.topbar a.home {
+  color: #d9ecc9;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  white-space: nowrap;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+}
+.topbar a.home:hover { background: rgba(255,255,255,0.14); color: #fff; }
+.topbar h1 { font-size: 1.3rem; font-weight: 700; line-height: 1.2; }
+.topbar h1 .subtitle { font-weight: 400; opacity: 0.85; font-size: 1.05rem; }
+
+/* ---------- Two-pane layout ---------- */
+main { display: flex; align-items: flex-start; }
+
+.plant-pane {
+  flex: 0 0 42%;
+  position: sticky;
+  top: var(--topbar-h);
+  height: calc(100vh - var(--topbar-h));
+  background: #b8dcf2;
+  z-index: 2;
+}
+#plantSvg { width: 100%; height: 100%; display: block; }
+
+.branch-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  display: none;
+}
+.branch-badge.healthy { display: block; background: #e3f4d7; color: #235312; border-color: #4d8a2c; }
+.branch-badge.ber { display: block; background: #fef0d8; color: #8a4a04; border-color: #d97706; }
+
+.info-pane { flex: 1; min-width: 0; }
+
+/* ---------- Stage header ---------- */
+.stage-head { padding: 0.9rem 1.4rem 0.5rem; }
+.stage-head h2 { font-size: 1.75rem; color: var(--green-dark); line-height: 1.15; }
+.stage-meta { margin-top: 0.25rem; font-size: 1.05rem; color: #4b5a40; font-weight: 600; }
+.stage-meta .day-chip {
+  background: var(--green-pale);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  padding: 0.1rem 0.7rem;
+  margin-right: 0.5rem;
+  color: var(--green-dark);
+}
+.stage-meta .branch-chip { color: var(--amber); }
+.stage-meta .branch-chip.healthy { color: #2f7014; }
+
+/* ---------- Timeline ---------- */
+.timeline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.55rem 1.4rem 0.75rem;
+  border-bottom: 2px solid var(--card-border);
+}
+.timeline .dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid var(--green-mid);
+  background: #fff;
+  cursor: pointer;
+  padding: 0;
+  flex: 0 0 auto;
+}
+.timeline .dot.past { background: #a9d488; border-color: #6da34a; }
+.timeline .dot.active { background: var(--green-dark); border-color: var(--green-dark); transform: scale(1.25); }
+.timeline .dot.berdot { border-color: var(--amber); }
+.timeline .dot.berdot.past { background: #f3c577; }
+.timeline .dot.berdot.active { background: var(--amber); border-color: var(--amber); }
+.timeline .dot:hover { box-shadow: 0 0 0 3px rgba(62,124,31,0.25); }
+.timeline .tsep { font-size: 1.4rem; font-weight: 800; color: #8aa178; margin: 0 0.15rem; }
+
+/* ---------- Content flow: branch panel, cards, nav ---------- */
+.content { padding: 1rem 1.4rem 1.4rem; }
+
+.card {
+  background: #fff;
+  border: 2px solid var(--card-border);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.85rem;
+}
+.card h3 {
+  font-size: 1.12rem;
+  color: var(--green-dark);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.card p, .card li { font-size: 1.12rem; line-height: 1.5; }
+.card ul { padding-left: 1.4rem; }
+.card li { margin-bottom: 0.3rem; }
+.card li:last-child { margin-bottom: 0; }
+.card.ber-note { border-color: #f0c98c; background: var(--amber-pale); }
+.card.ber-note h3 { color: #9a5a08; }
+
+.branch-panel {
+  display: none;
+  border: 3px solid var(--green-dark);
+  border-radius: 14px;
+  background: #fffef7;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+.branch-panel h3 { font-size: 1.3rem; color: var(--green-dark); margin-bottom: 0.3rem; }
+.branch-panel p.lead { font-size: 1.08rem; margin-bottom: 0.8rem; color: #3c4634; }
+.branch-panel .choices { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.branch-btn {
+  flex: 1 1 240px;
+  border: none;
+  border-radius: 12px;
+  padding: 0.95rem 1rem;
+  font-size: 1.12rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  color: #fff;
+  line-height: 1.35;
+}
+.branch-btn small { display: block; font-weight: 500; font-size: 0.98rem; opacity: 0.92; margin-top: 0.2rem; }
+.branch-btn.good { background: var(--green-mid); }
+.branch-btn.good:hover { background: var(--green-dark); }
+.branch-btn.poor { background: var(--amber); }
+.branch-btn.poor:hover { background: #b45f04; }
+
+/* Navigation — static, in flow directly above the info cards */
+.nav { display: flex; gap: 0.7rem; margin-bottom: 1.1rem; }
+.nav button {
+  flex: 1;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 0.7rem 0.5rem;
+  border-radius: 10px;
+  border: 2px solid var(--green-mid);
+  background: #fff;
+  color: var(--green-dark);
+  cursor: pointer;
+}
+.nav button:hover:not(:disabled) { background: var(--green-pale); }
+.nav button:disabled { opacity: 0.4; cursor: default; }
+.nav button.playing { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+
+/* ---------- Footer strip — full width, after all content ---------- */
+.foot {
+  text-align: center;
+  font-size: 0.98rem;
+  padding: 0.7rem 1rem;
+  background: var(--green-dark);
+  color: #cfe3bd;
+}
+.foot a { color: #fff; text-decoration: underline; }
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 880px) {
+  main { flex-direction: column; }
+  .plant-pane { position: sticky; flex: none; width: 100%; height: 46vh; }
+  .info-pane { width: 100%; }
+}
