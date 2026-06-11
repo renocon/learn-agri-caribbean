@@ -57,12 +57,34 @@ The site carries a legal disclaimer at `docs/disclaimer/index.html`. Every page 
 
 The disclaimer page itself uses `<meta name="robots" content="noindex, follow">` and does not need to be added to `sitemap.xml`.
 
+## Disclaimer banner — required on every page
+Every page must include a small amber disclaimer band as the **first element inside `<body>`**, before the `<header>`:
+
+```html
+<div class="disclaim-bar">For educational use only. Rates and recommendations are guides — always follow product labels and consult a qualified extension officer. <a href="../disclaimer/index.html">Full disclaimer</a></div>
+```
+
+- Tool pages: link to `../disclaimer/index.html`
+- Root `docs/index.html`: link to `disclaimer/index.html`
+
+The CSS for `.disclaim-bar` must also be present. For single-file pages add it inline before `</style>`:
+```css
+.disclaim-bar{background:#fff8e1;border-bottom:1px solid #ffe082;font-size:0.82rem;text-align:center;padding:0.35rem 1rem;color:#5a4000;line-height:1.4}
+.disclaim-bar a{color:#5a4000;font-weight:600}
+```
+For multi-file tools (e.g. `tomato-sim`) add it to the shared `styles.css`.
+
+## Page subtitle text
+- Do **not** use "CSEC" or "CVQ" in visible page subtitle elements (headings, `<p>` tags below `<h1>`).
+- Those terms are fine in `<title>`, `<meta>`, JSON-LD, and glossary definitions.
+
 ## When adding a new tool
 1. Create `docs/<tool-name>/index.html` with full SEO head block.
-2. Add a disclaimer link in the footer using the tool-page pattern above.
-3. Add a card/link for it in `docs/index.html`.
-4. Add a section for it in `README.md` (description + how to open/use).
-5. Add the new URL to `docs/sitemap.xml`.
+2. Add the disclaimer banner (first element in `<body>`) using the pattern above.
+3. Add a disclaimer link in the footer using the tool-page pattern above.
+4. Add a card/link for it in `docs/index.html`.
+5. Add a section for it in `README.md` (description + how to open/use).
+6. Add the new URL to `docs/sitemap.xml`.
 
 ## Audience
 - Primary: teachers using the site for classroom demos (projected screen, internet available).

@@ -1,5 +1,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+.disclaim-bar{background:#fff8e1;border-bottom:1px solid #ffe082;font-size:0.82rem;text-align:center;padding:0.35rem 1rem;color:#5a4000;line-height:1.4;flex:0 0 auto}
+.disclaim-bar a{color:#5a4000;font-weight:600}
+
 :root {
   --green-dark: #2d5a1b;
   --green-mid: #3e7c1f;
